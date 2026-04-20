@@ -165,6 +165,7 @@ Once the server is running and Claude Desktop is configured, you can use the fol
 - `get_activities`: Retrieve a list of activities
 - `get_activity_details`: Get detailed information for a specific activity
 - `get_activity_intervals`: Get detailed interval data for a specific activity
+- `athlete-summary`: Get weekly athlete summary data for a required date range
 - `get_wellness_data`: Fetch wellness data
 - `get_events`: Retrieve upcoming events (workouts, races, etc.)
 - `get_event_by_id`: Get detailed information for a specific event

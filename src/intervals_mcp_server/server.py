@@ -30,6 +30,7 @@ Usage:
         - get_events
         - get_event_by_id
         - add_or_update_event
+        - athlete-summary
         - delete_event
         - delete_events_by_date_range
         - get_wellness_data
@@ -84,6 +85,9 @@ from intervals_mcp_server.tools.events import (  # pylint: disable=wrong-import-
     get_event_by_id,
     get_events,
 )
+from intervals_mcp_server.tools.athlete_summary import (  # pylint: disable=wrong-import-position  # noqa: E402
+    get_athlete_summary,
+)
 from intervals_mcp_server.tools.wellness import get_wellness_data  # pylint: disable=wrong-import-position  # noqa: E402
 from intervals_mcp_server.tools.custom_items import (  # pylint: disable=wrong-import-position  # noqa: E402
     create_custom_item,
@@ -106,6 +110,7 @@ __all__ = [
     "get_activity_streams",
     "get_events",
     "get_event_by_id",
+    "get_athlete_summary",
     "delete_event",
     "delete_events_by_date_range",
     "add_or_update_event",

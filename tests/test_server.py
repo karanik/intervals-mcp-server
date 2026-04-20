@@ -10,6 +10,7 @@ These tests use monkeypatching to mock API responses and verify the formatting a
 - add_activity_message
 - get_events
 - get_event_by_id
+- get_athlete_summary
 - add_or_update_event
 - get_wellness_data
 
@@ -33,6 +34,7 @@ from intervals_mcp_server.server import (  # pylint: disable=wrong-import-positi
     get_activity_intervals,
     get_activity_messages,
     get_activity_streams,
+    get_athlete_summary,
     get_event_by_id,
     get_events,
     get_wellness_data,
@@ -117,6 +119,29 @@ def test_get_events(monkeypatch):
     result = asyncio.run(get_events(athlete_id="1", start_date="2024-01-01", end_date="2024-01-02"))
     assert "Test Event" in result
     assert "Events:" in result
+
+
+def test_get_athlete_summary(monkeypatch):
+    """
+    Test get_athlete_summary returns formatted JSON for the given date range.
+    """
+    summary = {
+        "athlete": {"id": "1", "name": "Test Athlete"},
+        "weeks": [{"start": "2024-01-01", "fitness": 75, "fatigue": 80}],
+    }
+
+    async def fake_request(*_args, **_kwargs):
+        return summary
+
+    monkeypatch.setattr("intervals_mcp_server.api.client.make_intervals_request", fake_request)
+    monkeypatch.setattr(
+        "intervals_mcp_server.tools.athlete_summary.make_intervals_request", fake_request
+    )
+    result = asyncio.run(
+        get_athlete_summary(athlete_id="1", start_date="2024-01-01", end_date="2024-01-31")
+    )
+    assert '"name": "Test Athlete"' in result
+    assert '"fitness": 75' in result
 
 
 def test_get_event_by_id(monkeypatch):
