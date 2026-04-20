@@ -6,6 +6,7 @@ This module contains tools for retrieving and managing athlete activities.
 
 from datetime import datetime, timedelta
 from typing import Any
+import json
 
 from intervals_mcp_server.api.client import make_intervals_request
 from intervals_mcp_server.config import get_config
@@ -205,6 +206,33 @@ async def get_activity_details(activity_id: str, api_key: str | None = None) -> 
             detailed_view += f"Zone {zone.get('number')}: {zone.get('secondsInZone')} seconds\n"
 
     return detailed_view
+
+
+@mcp.tool()
+async def get_activity_details_full(activity_id: str, api_key: str | None = None) -> str:
+    """Get the complete information for a specific activity from Intervals.icu as json
+
+    Args:
+        activity_id: The Intervals.icu activity ID
+        api_key: The Intervals.icu API key (optional, will use API_KEY from .env if not provided)
+    """
+    # Call the Intervals.icu API
+    result = await make_intervals_request(url=f"/activity/{activity_id}", api_key=api_key)
+
+    if isinstance(result, dict) and "error" in result:
+        error_message = result.get("message", "Unknown error")
+        return f"Error fetching activity details: {error_message}"
+
+    # Format the response
+    if not result:
+        return f"No details found for activity {activity_id}."
+
+    # If result is a list, use the first item if available
+    activity_data = result[0] if isinstance(result, list) and result else result
+    if not isinstance(activity_data, dict):
+        return f"Invalid activity format for activity {activity_id}."
+
+    return json.dumps(activity_data, indent=2) 
 
 
 @mcp.tool()

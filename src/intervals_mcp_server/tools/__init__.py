@@ -11,6 +11,7 @@ from mcp.server.fastmcp import FastMCP  # pylint: disable=import-error
 from intervals_mcp_server.tools.activities import (  # noqa: F401
     get_activities,
     get_activity_details,
+    get_activity_details_full,
     get_activity_intervals,
     get_activity_streams,
 )
@@ -45,6 +46,7 @@ __all__ = [
     "register_tools",
     "get_activities",
     "get_activity_details",
+    "get_activity_details_full",
     "get_activity_intervals",
     "get_activity_streams",
     "get_events",

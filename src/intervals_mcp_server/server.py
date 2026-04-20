@@ -23,6 +23,7 @@ Usage:
     MCP tools provided:
         - get_activities
         - get_activity_details
+        - get_activity_details_full
         - get_activity_intervals
         - get_activity_streams
         - get_activity_messages
@@ -74,6 +75,7 @@ from intervals_mcp_server.tools.activities import (  # pylint: disable=wrong-imp
     add_activity_message,
     get_activities,
     get_activity_details,
+    get_activity_details_full,
     get_activity_intervals,
     get_activity_messages,
     get_activity_streams,
@@ -105,6 +107,7 @@ __all__ = [
     "add_activity_message",
     "get_activities",
     "get_activity_details",
+    "get_activity_details_full",
     "get_activity_intervals",
     "get_activity_messages",
     "get_activity_streams",
