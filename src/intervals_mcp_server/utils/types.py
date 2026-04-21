@@ -397,11 +397,11 @@ class Step:  # pylint: disable=too-many-instance-attributes
             if not nested and self.cooldown:
                 val += "\nCooldown\n"
 
-            val += ""
+            lap_prefix = "press lap " if self.until_lap_press else ""
             if self.duration is not None:
-                val += f"- {self._format_duration()} "
+                val += f"- {lap_prefix}{self._format_duration()} "
             elif self.distance is not None:
-                val += f"- {self._format_distance()} "
+                val += f"- {lap_prefix}{self._format_distance()} "
 
             if self.freeride:
                 val += "freeride "
